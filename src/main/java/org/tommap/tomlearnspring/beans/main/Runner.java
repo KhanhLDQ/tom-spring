@@ -9,7 +9,7 @@ public class Runner {
         //initialize IoC container
         var context = new AnnotationConfigApplicationContext(ProjectConfiguration.class);
 
-        Vehicle veh = context.getBean(Vehicle.class);
+        Vehicle veh = context.getBean("vehicle", Vehicle.class);
         System.out.println("Vehicle name from Spring context: " + veh.getName());
     }
 }
