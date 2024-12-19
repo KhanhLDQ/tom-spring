@@ -2,6 +2,7 @@ package org.tommap.tomlearnspring.beans.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.tommap.tomlearnspring.beans.model.Vehicle;
 
 /*
@@ -17,6 +18,11 @@ public class ProjectConfiguration {
                 the returned value as a bean to the context
      */
     @Bean(name = "tomVehicle")
+    /*
+        - @Primary
+            + default bean to be considered in the scenarios of ambiguity - when there are multiple beans of the same type
+     */
+    @Primary
         /*
         - method names usually follow verbs notation: moveVehicle, sayHello, ...
         - however, for methods which we use to create beans, can use nouns as names
