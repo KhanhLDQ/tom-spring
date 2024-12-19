@@ -16,7 +16,7 @@ public class ProjectConfiguration {
             + lets Spring know that it needs to call this method when it initializes IoC container and adds
                 the returned value as a bean to the context
      */
-    @Bean
+    @Bean(name = "tomVehicle")
         /*
         - method names usually follow verbs notation: moveVehicle, sayHello, ...
         - however, for methods which we use to create beans, can use nouns as names
@@ -29,7 +29,7 @@ public class ProjectConfiguration {
         return vehicle;
     }
 
-    @Bean
+    @Bean(name = "jerryVehicle")
     public Vehicle vehicle2() {
         var vehicle = new Vehicle();
         vehicle.setName("Jerry");
