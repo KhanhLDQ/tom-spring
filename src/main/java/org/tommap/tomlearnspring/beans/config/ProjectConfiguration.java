@@ -30,12 +30,10 @@ public class ProjectConfiguration {
     }
 
     @Bean
-    public String hello() {
-        return "Hello Tom";
-    }
+    public Vehicle vehicle2() {
+        var vehicle = new Vehicle();
+        vehicle.setName("Jerry");
 
-    @Bean
-    public Integer number() {
-        return 123456;
+        return vehicle;
     }
 }
