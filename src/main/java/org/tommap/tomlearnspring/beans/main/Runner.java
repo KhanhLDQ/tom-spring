@@ -14,7 +14,6 @@ public class Runner {
         System.out.println("Vehicle name from Spring context: " + tomVehicle.getName());
 
         Animal animal = context.getBean(Animal.class);
-        animal.setName("Tom");
         animal.sayHello();
     }
 }
