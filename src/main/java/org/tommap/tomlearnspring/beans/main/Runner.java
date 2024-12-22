@@ -15,5 +15,7 @@ public class Runner {
 
         Animal animal = context.getBean(Animal.class);
         animal.sayHello();
+
+        context.close();
     }
 }
