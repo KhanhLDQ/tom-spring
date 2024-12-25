@@ -7,8 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class Manufacturer {
     private String name;
-
-    @Autowired
     private Vehicle vehicle;
 
     @PostConstruct
@@ -28,6 +26,7 @@ public class Manufacturer {
         return vehicle;
     }
 
+    @Autowired
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
     }
