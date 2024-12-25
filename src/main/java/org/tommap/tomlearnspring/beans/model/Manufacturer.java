@@ -2,6 +2,7 @@ package org.tommap.tomlearnspring.beans.model;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -10,7 +11,7 @@ public class Manufacturer {
     private final Vehicle vehicle;
 
     @Autowired
-    public Manufacturer(Vehicle vehicle) {
+    public Manufacturer(@Qualifier("jerryVehicle") Vehicle vehicle) {
         this.vehicle = vehicle;
     }
 
