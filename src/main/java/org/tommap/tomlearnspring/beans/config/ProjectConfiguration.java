@@ -1,5 +1,6 @@
 package org.tommap.tomlearnspring.beans.config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -46,11 +47,20 @@ public class ProjectConfiguration {
         return vehicle;
     }
 
+//    @Bean
+//    public Manufacturer manufacturer() {
+//        Manufacturer manufacturer = new Manufacturer();
+//        manufacturer.setName("Jerry's Manufacturer");
+//        manufacturer.setVehicle(vehicle2()); //method call
+//
+//        return manufacturer;
+//    }
+
     @Bean
-    public Manufacturer manufacturer() {
+    public Manufacturer manufacturer(@Qualifier("jerryVehicle") Vehicle vehicle) {
         Manufacturer manufacturer = new Manufacturer();
         manufacturer.setName("Jerry's Manufacturer");
-        manufacturer.setVehicle(vehicle2()); //method call
+        manufacturer.setVehicle(vehicle);
 
         return manufacturer;
     }
