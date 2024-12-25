@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.tommap.tomlearnspring.beans.model.Manufacturer;
 import org.tommap.tomlearnspring.beans.model.Vehicle;
 
 /*
@@ -43,5 +44,14 @@ public class ProjectConfiguration {
         vehicle.setName("Jerry");
 
         return vehicle;
+    }
+
+    @Bean
+    public Manufacturer manufacturer() {
+        Manufacturer manufacturer = new Manufacturer();
+        manufacturer.setName("Jerry's Manufacturer");
+        manufacturer.setVehicle(vehicle2()); //method call
+
+        return manufacturer;
     }
 }

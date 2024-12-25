@@ -5,6 +5,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.tommap.tomlearnspring.beans.config.ProjectConfiguration;
 import org.tommap.tomlearnspring.beans.model.Animal;
 import org.tommap.tomlearnspring.beans.model.Company;
+import org.tommap.tomlearnspring.beans.model.Manufacturer;
 import org.tommap.tomlearnspring.beans.model.Vehicle;
 
 import java.util.Random;
@@ -20,6 +21,10 @@ public class Runner {
 
         Animal animal = context.getBean(Animal.class);
         animal.sayHello();
+
+        Manufacturer jerryManufacturer = context.getBean(Manufacturer.class);
+        System.out.println("Manufacturer name from Spring context: " + jerryManufacturer.getName());
+        System.out.println("Vehicle of Jerry's Manufacturer: " + jerryManufacturer.getVehicle().getName());
 
         //creating beans programmatically
         Supplier<Company> saigonTechSupplier = () -> {
