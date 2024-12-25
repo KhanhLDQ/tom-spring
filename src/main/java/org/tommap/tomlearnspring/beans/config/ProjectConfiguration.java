@@ -26,7 +26,7 @@ public class ProjectConfiguration {
         - @Primary
             + default bean to be considered in the scenarios of ambiguity - when there are multiple beans of the same type
      */
-    @Primary
+//    @Primary
         /*
         - method names usually follow verbs notation: moveVehicle, sayHello, ...
         - however, for methods which we use to create beans, can use nouns as names
@@ -39,13 +39,13 @@ public class ProjectConfiguration {
         return vehicle;
     }
 
-    @Bean(name = "jerryVehicle")
-    public Vehicle vehicle2() {
-        var vehicle = new Vehicle();
-        vehicle.setName("Jerry");
-
-        return vehicle;
-    }
+//    @Bean(name = "jerryVehicle")
+//    public Vehicle vehicle2() {
+//        var vehicle = new Vehicle();
+//        vehicle.setName("Jerry");
+//
+//        return vehicle;
+//    }
 
 //    @Bean
 //    public Manufacturer manufacturer() {
@@ -56,12 +56,12 @@ public class ProjectConfiguration {
 //        return manufacturer;
 //    }
 
-    @Bean
-    public Manufacturer manufacturer(@Qualifier("jerryVehicle") Vehicle vehicle) {
-        Manufacturer manufacturer = new Manufacturer();
-        manufacturer.setName("Jerry's Manufacturer");
-        manufacturer.setVehicle(vehicle);
-
-        return manufacturer;
-    }
+//    @Bean
+//    public Manufacturer manufacturer(@Qualifier("jerryVehicle") Vehicle vehicle) {
+//        Manufacturer manufacturer = new Manufacturer();
+//        manufacturer.setName("Jerry's Manufacturer");
+//        manufacturer.setVehicle(vehicle);
+//
+//        return manufacturer;
+//    }
 }
