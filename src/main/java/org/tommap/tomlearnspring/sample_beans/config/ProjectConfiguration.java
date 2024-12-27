@@ -1,12 +1,10 @@
-package org.tommap.tomlearnspring.beans.config;
+package org.tommap.tomlearnspring.sample_beans.config;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.tommap.tomlearnspring.beans.model.Manufacturer;
-import org.tommap.tomlearnspring.beans.model.Vehicle;
+import org.tommap.tomlearnspring.sample_beans.model.Vehicle;
 
 /*
     - @Configuration
@@ -14,7 +12,7 @@ import org.tommap.tomlearnspring.beans.model.Vehicle;
         + the content of this class will be scanned and beans will be generated during IoC container initialization
  */
 @Configuration
-@ComponentScan("org.tommap.tomlearnspring.beans")
+@ComponentScan("org.tommap.tomlearnspring.sample_beans")
 public class ProjectConfiguration {
     /*
         - @Bean

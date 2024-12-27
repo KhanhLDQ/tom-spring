@@ -1,4 +1,4 @@
-package org.tommap.tomlearnspring.beans.model;
+package org.tommap.tomlearnspring.sample_beans.model;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;

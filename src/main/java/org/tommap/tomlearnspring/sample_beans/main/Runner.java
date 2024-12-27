@@ -1,31 +1,33 @@
-package org.tommap.tomlearnspring.beans.main;
+package org.tommap.tomlearnspring.sample_beans.main;
 
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.tommap.tomlearnspring.beans.config.ProjectConfiguration;
-import org.tommap.tomlearnspring.beans.model.Animal;
-import org.tommap.tomlearnspring.beans.model.Company;
-import org.tommap.tomlearnspring.beans.model.Manufacturer;
-import org.tommap.tomlearnspring.beans.model.TestSingleton;
-import org.tommap.tomlearnspring.beans.model.Vehicle;
-
-import java.util.Random;
-import java.util.function.Supplier;
+import org.tommap.tomlearnspring.sample_beans.config.ProjectConfiguration;
+import org.tommap.tomlearnspring.sample_beans.model.TestPrototype;
 
 public class Runner {
     public static void main(String[] args) {
         //initialize IoC container
         var context = new AnnotationConfigApplicationContext(ProjectConfiguration.class);
 
-        var testSingletonI = context.getBean(TestSingleton.class);
-        var testSingletonII = context.getBean(TestSingleton.class);
+        var testPrototypeI = context.getBean(TestPrototype.class);
+        var testPrototypeII = context.getBean(TestPrototype.class);
 
-        System.out.println("hashcode of testSingletonI: " + testSingletonI.hashCode());
-        System.out.println("hashcode of testSingletonII: " + testSingletonII.hashCode());
+        System.out.println("hashcode of testPrototypeI: " + testPrototypeI.hashCode());
+        System.out.println("hashcode of testPrototypeII: " + testPrototypeII.hashCode());
 
-        if (testSingletonI == testSingletonII) {
-            System.out.println("TestSingletonBean is a singleton bean scope");
+        if (testPrototypeI != testPrototypeII) {
+            System.out.println("TestPrototypeBean is a prototype bean scope");
         }
+
+//        var testSingletonI = context.getBean(TestSingleton.class);
+//        var testSingletonII = context.getBean(TestSingleton.class);
+//
+//        System.out.println("hashcode of testSingletonI: " + testSingletonI.hashCode());
+//        System.out.println("hashcode of testSingletonII: " + testSingletonII.hashCode());
+//
+//        if (testSingletonI == testSingletonII) {
+//            System.out.println("TestSingletonBean is a singleton bean scope");
+//        }
 
 //        Vehicle tomVehicle = context.getBean(Vehicle.class);
 //        System.out.println("Vehicle name from Spring context: " + tomVehicle.getName());

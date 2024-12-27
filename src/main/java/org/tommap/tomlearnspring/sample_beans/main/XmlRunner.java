@@ -1,7 +1,7 @@
-package org.tommap.tomlearnspring.beans.main;
+package org.tommap.tomlearnspring.sample_beans.main;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.tommap.tomlearnspring.beans.model.CoffeeStore;
+import org.tommap.tomlearnspring.sample_beans.model.CoffeeStore;
 
 public class XmlRunner {
     public static void main(String[] args) {
