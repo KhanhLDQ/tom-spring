@@ -6,6 +6,7 @@ import org.tommap.tomlearnspring.beans.config.ProjectConfiguration;
 import org.tommap.tomlearnspring.beans.model.Animal;
 import org.tommap.tomlearnspring.beans.model.Company;
 import org.tommap.tomlearnspring.beans.model.Manufacturer;
+import org.tommap.tomlearnspring.beans.model.TestSingleton;
 import org.tommap.tomlearnspring.beans.model.Vehicle;
 
 import java.util.Random;
@@ -16,15 +17,25 @@ public class Runner {
         //initialize IoC container
         var context = new AnnotationConfigApplicationContext(ProjectConfiguration.class);
 
+        var testSingletonI = context.getBean(TestSingleton.class);
+        var testSingletonII = context.getBean(TestSingleton.class);
+
+        System.out.println("hashcode of testSingletonI: " + testSingletonI.hashCode());
+        System.out.println("hashcode of testSingletonII: " + testSingletonII.hashCode());
+
+        if (testSingletonI == testSingletonII) {
+            System.out.println("TestSingletonBean is a singleton bean scope");
+        }
+
 //        Vehicle tomVehicle = context.getBean(Vehicle.class);
 //        System.out.println("Vehicle name from Spring context: " + tomVehicle.getName());
 //
 //        Animal animal = context.getBean(Animal.class);
 //        animal.sayHello();
 
-        Manufacturer manufacturer = context.getBean(Manufacturer.class);
-        System.out.println("Manufacturer name from Spring context: " + manufacturer.getName());
-        System.out.println("Vehicle of Tom's Manufacturer: " + manufacturer.getVehicle().getName());
+//        Manufacturer manufacturer = context.getBean(Manufacturer.class);
+//        System.out.println("Manufacturer name from Spring context: " + manufacturer.getName());
+//        System.out.println("Vehicle of Tom's Manufacturer: " + manufacturer.getVehicle().getName());
 
         //creating beans programmatically
 //        Supplier<Company> saigonTechSupplier = () -> {
