@@ -7,26 +7,26 @@ import org.tommap.tomlearnspring.aop.services.VehicleServices;
 
 public class Runner {
     public static void main(String[] args) {
-        var context = new AnnotationConfigApplicationContext(ProjectConfiguration.class);
+        try (var context = new AnnotationConfigApplicationContext(ProjectConfiguration.class)) {
+            var vehicleServices = context.getBean(VehicleServices.class);
+            System.out.println(vehicleServices.getClass());
 
-        var vehicleServices = context.getBean(VehicleServices.class);
-        System.out.println(vehicleServices.getClass());
+            Song song = new Song();
+            song.setTitle("Pickleball");
+            song.setSingerName("Do Phu Qui");
 
-        Song song = new Song();
-        song.setTitle("Pickleball");
-        song.setSingerName("Do Phu Qui");
+            boolean vehicleStarted = true;
 
-        boolean vehicleStarted = true;
+            String moveVehicleStatus = vehicleServices.moveVehicle(vehicleStarted);
+            System.out.println(moveVehicleStatus);
 
-        String moveVehicleStatus = vehicleServices.moveVehicle(vehicleStarted);
-        System.out.println(moveVehicleStatus);
+            String playMusicStatus = vehicleServices.playMusic(vehicleStarted, song);
+            System.out.println(playMusicStatus);
 
-        String playMusicStatus = vehicleServices.playMusic(vehicleStarted, song);
-        System.out.println(playMusicStatus);
-
-        String applyBrakeStatus = vehicleServices.applyBrake(vehicleStarted);
-        System.out.println(applyBrakeStatus);
-
-        context.close();
+            String applyBrakeStatus = vehicleServices.applyBrake(vehicleStarted);
+            System.out.println(applyBrakeStatus);
+        } catch (Exception ex) {
+            System.out.println("Error occurred: " + ex.getMessage());
+        }
     }
 }
