@@ -2,6 +2,7 @@ package org.tommap.tomlearnspring.aop.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.tommap.tomlearnspring.aop.aspects.LogAspect;
 import org.tommap.tomlearnspring.aop.interfaces.Speakers;
 import org.tommap.tomlearnspring.aop.interfaces.Tyres;
 import org.tommap.tomlearnspring.aop.model.Song;
@@ -17,6 +18,7 @@ public class VehicleServices {
         this.tyres = tyres;
     }
 
+    @LogAspect
     public String playMusic(boolean vehicleStarted, Song song) {
         return speakers.makeSound(song);
     }

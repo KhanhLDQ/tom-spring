@@ -19,7 +19,8 @@ import java.util.logging.Logger;
 public class LoggerAspect {
     private final Logger logger = Logger.getLogger(LoggerAspect.class.getName());
 
-    @Around("execution(* org.tommap.tomlearnspring.aop.services.*.*(..))")
+//    @Around("execution(* org.tommap.tomlearnspring.aop.services.*.*(..))")
+    @Around("@annotation(org.tommap.tomlearnspring.aop.aspects.LogAspect)")
     public String log(ProceedingJoinPoint joinPoint) throws Throwable {
         logger.info(() -> joinPoint.getSignature().toLongString() + " method execution start");
         Instant start = Instant.now();
