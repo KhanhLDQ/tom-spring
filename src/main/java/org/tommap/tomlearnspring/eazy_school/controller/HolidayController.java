@@ -7,7 +7,6 @@ import org.tommap.tomlearnspring.eazy_school.model.Holiday;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class HolidayController {
@@ -30,7 +29,7 @@ public class HolidayController {
                     type.toString(),
                     holidays.stream()
                             .filter(holiday -> holiday.getType().equals(type))
-                            .collect(Collectors.toList())
+                            .toList()
             );
         }
 
