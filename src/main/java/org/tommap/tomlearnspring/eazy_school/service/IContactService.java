@@ -4,4 +4,6 @@ import org.tommap.tomlearnspring.eazy_school.model.Contact;
 
 public interface IContactService {
     boolean saveMsgDetails(Contact contact);
+    int getCounter();
+    void setCounter(int counter);
 }

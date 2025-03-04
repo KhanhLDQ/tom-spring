@@ -39,6 +39,10 @@ public class ContactController {
         }
 
         contactService.saveMsgDetails(contact);
+
+        contactService.setCounter(contactService.getCounter() + 1);
+        log.info("number of times contact form submitted: {}", contactService.getCounter());
+
         return "redirect:/contact";
     }
 }
