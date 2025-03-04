@@ -1,15 +1,19 @@
 package org.tommap.tomlearnspring.eazy_school.controller;
 
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.tommap.tomlearnspring.eazy_school.model.Contact;
 import org.tommap.tomlearnspring.eazy_school.service.IContactService;
 
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
 @Controller
+@Slf4j
 public class ContactController {
     private final IContactService contactService;
 
@@ -18,16 +22,23 @@ public class ContactController {
         this.contactService = contactService;
     }
 
-    @RequestMapping("/contact")
-    public String displayContactPage() {
+    @GetMapping("/contact")
+    public String displayContactPage(Model model) {
+        model.addAttribute("contact", new Contact());
         return "contact.html";
     }
 
-    @RequestMapping(path = "/saveMsg", method = POST)
-    public ModelAndView saveMsg(
-            Contact contact
+    @PostMapping("/saveMsg")
+    public String saveMsg(
+            @Valid @ModelAttribute("contact") Contact contact,
+            Errors errors
     ) {
+        if (errors.hasErrors()) {
+            log.error("contact form validation failed due to: {}", errors);
+            return "contact.html";
+        }
+
         contactService.saveMsgDetails(contact);
-        return new ModelAndView("redirect:/contact"); //club model data and view information
+        return "redirect:/contact";
     }
 }
