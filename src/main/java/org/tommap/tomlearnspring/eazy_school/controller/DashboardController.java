@@ -14,6 +14,7 @@ public class DashboardController {
         model.addAttribute("username", authentication.getName());
         model.addAttribute("roles", authentication.getAuthorities().toString());
 
+//        throw new RuntimeException("This is a test exception");
         return "dashboard.html";
     }
 }
