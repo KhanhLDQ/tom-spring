@@ -17,15 +17,25 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/dashboard").authenticated()
                         .requestMatchers("/", "/home").permitAll() //configure empty path "" is no longer possible
                         .requestMatchers("/holidays/**").permitAll()
                         .requestMatchers("/contact").permitAll()
                         .requestMatchers("/saveMsg").permitAll()
                         .requestMatchers("/courses").permitAll()
                         .requestMatchers("/about").permitAll()
+                        .requestMatchers("/login").permitAll()
                         .requestMatchers("/assets/**").permitAll()
                 )
-                .formLogin(Customizer.withDefaults())
+                .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login")
+                        .defaultSuccessUrl("/dashboard")
+                        .failureUrl("/login?error=true")
+                        .permitAll()
+                )
+                .logout(logoutConfigurer -> logoutConfigurer.logoutSuccessUrl("/login?logout=true")
+                        .invalidateHttpSession(true)
+                        .permitAll()
+                )
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();
