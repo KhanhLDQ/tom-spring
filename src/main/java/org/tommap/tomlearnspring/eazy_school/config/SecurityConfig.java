@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,7 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
+        http.csrf(csrfConfigurer -> csrfConfigurer.ignoringRequestMatchers("/saveMsg"))
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/dashboard").authenticated()
                         .requestMatchers("/", "/home").permitAll() //configure empty path "" is no longer possible
@@ -25,6 +24,7 @@ public class SecurityConfig {
                         .requestMatchers("/courses").permitAll()
                         .requestMatchers("/about").permitAll()
                         .requestMatchers("/login").permitAll()
+                        .requestMatchers("/logout").permitAll()
                         .requestMatchers("/assets/**").permitAll()
                 )
                 .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login")
