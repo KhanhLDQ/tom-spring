@@ -2,8 +2,10 @@ package org.tommap.tomlearnspring.eazy_school.service;
 
 import org.tommap.tomlearnspring.eazy_school.model.Contact;
 
+import java.util.List;
+
 public interface IContactService {
     boolean saveMsgDetails(Contact contact);
-    int getCounter();
-    void setCounter(int counter);
+    List<Contact> findMessagesWithOpenStatus();
+    boolean updateMsgStatus(int contactId, String updatedBy);
 }

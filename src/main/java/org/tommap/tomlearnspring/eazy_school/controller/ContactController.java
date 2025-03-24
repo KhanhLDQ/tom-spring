@@ -3,14 +3,19 @@ package org.tommap.tomlearnspring.eazy_school.controller;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.tommap.tomlearnspring.eazy_school.model.Contact;
 import org.tommap.tomlearnspring.eazy_school.service.IContactService;
+
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -39,10 +44,21 @@ public class ContactController {
         }
 
         contactService.saveMsgDetails(contact);
-
-        contactService.setCounter(contactService.getCounter() + 1);
-        log.info("number of times contact form submitted: {}", contactService.getCounter());
-
         return "redirect:/contact";
+    }
+
+    @GetMapping("/displayMessages")
+    public ModelAndView displayMessages(Model model) {
+        List<Contact> contactMessages = contactService.findMessagesWithOpenStatus();
+        ModelAndView modelAndView = new ModelAndView("messages.html");
+        modelAndView.addObject("contactMessages", contactMessages);
+
+        return modelAndView;
+    }
+
+    @GetMapping("/closeMsg")
+    public String closeMsg(@RequestParam("id") int contactId, Authentication authentication) {
+        contactService.updateMsgStatus(contactId, authentication.getName());
+        return "redirect:/displayMessages";
     }
 }
