@@ -18,7 +18,7 @@ public class ContactRepositoryImpl implements IContactRepository {
 
     @Override
     public int saveContactMsg(Contact contact) {
-        String sql = "INSERT INTO CONTACT_MSG (NAME, MOBILE_NUM, EMAIL, SUBJECT, MESSAGE, STATUS, CREATED_AT, CREATED_BY) " +
+        String sql = "INSERT INTO contact_msg (name, mobile_num, email, subject, message, status, created_at, created_by) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         return jdbcTemplate.update(sql,
@@ -30,14 +30,14 @@ public class ContactRepositoryImpl implements IContactRepository {
 
     @Override
     public List<Contact> findMessagesWithStatus(String status) {
-        String sql = "SELECT * FROM CONTACT_MSG WHERE STATUS = ?";
+        String sql = "SELECT * FROM contact_msg WHERE status = ?";
 
         return jdbcTemplate.query(sql, ps -> ps.setString(1, status), new ContactRowMapper());
     }
 
     @Override
     public int updateMsgStatus(int contactId, String status, String updatedBy) {
-        String sql = "UPDATE CONTACT_MSG SET STATUS = ?, UPDATED_BY = ?, UPDATED_AT = ? WHERE CONTACT_ID = ?";
+        String sql = "UPDATE contact_msg SET status = ?, updated_by = ?, updated_at = ? WHERE contact_id = ?";
 
         return jdbcTemplate.update(sql, ps -> {
             ps.setString(1, status);
