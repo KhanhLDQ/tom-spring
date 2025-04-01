@@ -1,10 +1,13 @@
 package org.tommap.tomlearnspring.eazy_school.model;
 
-import lombok.Data;
+import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Data
+@MappedSuperclass //indicates that this class is going to act as a superclass for other entities
+@Getter @Setter
 public class BaseEntity {
     private LocalDateTime createdAt;
     private String createdBy;

@@ -6,14 +6,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.tommap.tomlearnspring.eazy_school.model.Holiday;
-import org.tommap.tomlearnspring.eazy_school.repository.IHolidayRepository;
+import org.tommap.tomlearnspring.eazy_school.repository.HolidayRepository;
 
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 @Controller
 @RequiredArgsConstructor
 public class HolidayController {
-    private final IHolidayRepository holidayRepository;
+    private final HolidayRepository holidayRepository;
 
     @GetMapping("/holidays/{display}")
     public String displayHolidays(
@@ -37,7 +38,9 @@ public class HolidayController {
         model.addAttribute("is_show_festival", is_show_festival);
         model.addAttribute("is_show_federal", is_show_federal);
 
-        List<Holiday> holidays = holidayRepository.findAllHolidays();
+        List<Holiday> holidays = StreamSupport.stream(
+                holidayRepository.findAll().spliterator(), false
+        ).toList();
 
         Holiday.Type[] types = Holiday.Type.values();
         for (Holiday.Type type: types) {
