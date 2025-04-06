@@ -7,5 +7,5 @@ import java.util.List;
 public interface IContactService {
     boolean saveMsgDetails(Contact contact);
     List<Contact> findMessagesWithOpenStatus();
-    boolean updateMsgStatus(int contactId, String updatedBy);
+    boolean updateMsgStatus(int contactId);
 }

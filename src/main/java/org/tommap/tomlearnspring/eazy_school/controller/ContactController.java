@@ -3,7 +3,6 @@ package org.tommap.tomlearnspring.eazy_school.controller;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -57,8 +56,8 @@ public class ContactController {
     }
 
     @GetMapping("/closeMsg")
-    public String closeMsg(@RequestParam("id") int contactId, Authentication authentication) {
-        contactService.updateMsgStatus(contactId, authentication.getName());
+    public String closeMsg(@RequestParam("id") int contactId) {
+        contactService.updateMsgStatus(contactId);
         return "redirect:/displayMessages";
     }
 }

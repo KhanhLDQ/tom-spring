@@ -7,7 +7,6 @@ import org.tommap.tomlearnspring.eazy_school.model.Contact;
 import org.tommap.tomlearnspring.eazy_school.repository.ContactRepository;
 import org.tommap.tomlearnspring.eazy_school.service.IContactService;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -20,10 +19,8 @@ public class ContactServiceImpl implements IContactService {
         boolean isSaved = false;
 
         contact.setStatus(EazySchoolConstants.OPEN);
-        contact.setCreatedBy(EazySchoolConstants.ANONYMOUS);
-        contact.setCreatedAt(LocalDateTime.now());
-
         var savedContact = contactRepository.save(contact);
+
         if (savedContact.getContactId() > 0) {
             isSaved = true;
         }
@@ -37,17 +34,15 @@ public class ContactServiceImpl implements IContactService {
     }
 
     @Override
-    public boolean updateMsgStatus(int contactId, String updatedBy) {
+    public boolean updateMsgStatus(int contactId) {
         boolean isUpdated = false;
 
         var contact = contactRepository.findById(contactId)
                 .orElseThrow(() -> new RuntimeException("Contact not found"));
 
         contact.setStatus(EazySchoolConstants.CLOSE);
-        contact.setUpdatedBy(updatedBy);
-        contact.setUpdatedAt(LocalDateTime.now());
-
         var updatedContact = contactRepository.save(contact);
+
         if (null != updatedContact.getUpdatedBy()) {
             isUpdated = true;
         }
