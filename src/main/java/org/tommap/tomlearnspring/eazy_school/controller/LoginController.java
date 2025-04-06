@@ -20,6 +20,7 @@ public class LoginController {
     public String displayLoginPage(
             @RequestParam(name = "error", required = false) String error,
             @RequestParam(name = "logout", required = false) String logout,
+            @RequestParam(name = "register", required = false) String register,
             Model model
     ) {
         String errorMsg = null;
@@ -29,6 +30,10 @@ public class LoginController {
 
         if (null != logout) {
             errorMsg = "You have been successfully logged out";
+        }
+
+        if (null != register) {
+            errorMsg = "You have been successfully registered. Please login to continue";
         }
 
         model.addAttribute("errorMsg", errorMsg);
