@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.tommap.tomlearnspring.eazy_school.model.Roles;
 import org.tommap.tomlearnspring.eazy_school.repository.PersonRepository;
@@ -19,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EazySchoolAuthenticationProvider implements AuthenticationProvider {
     private final PersonRepository personRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -28,8 +30,8 @@ public class EazySchoolAuthenticationProvider implements AuthenticationProvider 
         var person = personRepository.findByEmail(email)
                 .orElseThrow(() -> new BadCredentialsException("User not found"));
 
-        if (pwd.equals(person.getPwd())) {
-            return new UsernamePasswordAuthenticationToken(person.getName(), pwd, getGrantedAuthorities(person.getRoles()));
+        if (passwordEncoder.matches(pwd, person.getPwd())) {
+            return new UsernamePasswordAuthenticationToken(person.getName(), null, getGrantedAuthorities(person.getRoles()));
         } else {
             throw new BadCredentialsException("Invalid credentials");
         }

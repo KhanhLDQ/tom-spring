@@ -1,6 +1,7 @@
 package org.tommap.tomlearnspring.eazy_school.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.tommap.tomlearnspring.eazy_school.constants.EazySchoolConstants;
 import org.tommap.tomlearnspring.eazy_school.model.Person;
@@ -14,6 +15,7 @@ import org.tommap.tomlearnspring.eazy_school.service.IPersonService;
 public class PersonServiceImpl implements IPersonService {
     private final PersonRepository personRepository;
     private final RolesRepository rolesRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public boolean createPerson(Person person) {
@@ -23,6 +25,7 @@ public class PersonServiceImpl implements IPersonService {
                 .orElseThrow(() -> new RuntimeException("Role not found"));
 
         person.setRoles(roles);
+        person.setPwd(passwordEncoder.encode(person.getPwd()));
         var savedPerson = personRepository.save(person);
 
         if (savedPerson.getPersonId() > 0) {

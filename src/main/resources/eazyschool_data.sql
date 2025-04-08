@@ -30,3 +30,6 @@ VALUES ('STUDENT',CURDATE(),'DBA');
 
 INSERT INTO `person` (`name`,`email`,`mobile_number`,`pwd`,`role_id`,`created_at`, `created_by`)
 VALUES ('Tom Admin','tom@gmail.com','0123456789','Tom12345', 1 ,CURDATE(),'DBA');
+
+DELETE FROM person where email='khanhle@gmail.com';
+DELETE FROM person where email='tom@gmail.com';
