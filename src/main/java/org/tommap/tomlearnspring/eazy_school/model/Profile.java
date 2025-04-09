@@ -1,26 +1,25 @@
 package org.tommap.tomlearnspring.eazy_school.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-@Entity
-@Getter @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class Address extends BaseEntity{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int addressId;
+@Data
+public class Profile {
+    @NotBlank(message = "name must not be blank")
+    @Size(min = 3, message = "name must be at least 3 characters")
+    private String name;
+
+    @NotBlank(message = "mobile number must not be blank")
+    @Pattern(regexp = "(^$|\\d{10})", message = "mobile number must be 10 digits")
+    private String mobileNumber;
+
+    @NotBlank(message = "email must not be blank")
+    @Email(message = "please provide a valid email address")
+    private String email;
 
     @NotBlank(message = "address I must not be blank")
     @Size(min = 5, message = "address I must be at least 5 characters long")

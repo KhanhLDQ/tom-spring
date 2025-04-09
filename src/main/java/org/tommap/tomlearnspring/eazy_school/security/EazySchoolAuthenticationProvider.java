@@ -31,7 +31,7 @@ public class EazySchoolAuthenticationProvider implements AuthenticationProvider 
                 .orElseThrow(() -> new BadCredentialsException("User not found"));
 
         if (passwordEncoder.matches(pwd, person.getPwd())) {
-            return new UsernamePasswordAuthenticationToken(person.getName(), null, getGrantedAuthorities(person.getRoles()));
+            return new UsernamePasswordAuthenticationToken(email, null, getGrantedAuthorities(person.getRoles()));
         } else {
             throw new BadCredentialsException("Invalid credentials");
         }
