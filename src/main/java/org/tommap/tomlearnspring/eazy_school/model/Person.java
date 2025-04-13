@@ -7,6 +7,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Transient;
@@ -20,6 +22,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.tommap.tomlearnspring.eazy_school.annotations.FieldsMatching;
 import org.tommap.tomlearnspring.eazy_school.annotations.PasswordStrength;
+
+import java.util.Set;
 
 @Entity
 @Getter @Setter
@@ -78,4 +82,12 @@ public class Person extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "class_id", referencedColumnName = "classId", nullable = true)
     private EazyClass eazyClass; //bi directional
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "person_course",
+            joinColumns = @JoinColumn(name = "person_id", referencedColumnName = "personId"),
+            inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "courseId")
+    )
+    private Set<Course> courses;
 }
