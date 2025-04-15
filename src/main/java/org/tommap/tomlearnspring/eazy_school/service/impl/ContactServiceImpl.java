@@ -1,24 +1,32 @@
 package org.tommap.tomlearnspring.eazy_school.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.tommap.tomlearnspring.eazy_school.constants.EazySchoolConstants;
 import org.tommap.tomlearnspring.eazy_school.model.Contact;
 import org.tommap.tomlearnspring.eazy_school.repository.ContactRepository;
 import org.tommap.tomlearnspring.eazy_school.service.IContactService;
 
 import java.util.List;
 
+import static org.tommap.tomlearnspring.eazy_school.constants.EazySchoolConstants.CLOSE;
+import static org.tommap.tomlearnspring.eazy_school.constants.EazySchoolConstants.OPEN;
+
 @Service
 @RequiredArgsConstructor
 public class ContactServiceImpl implements IContactService {
     private final ContactRepository contactRepository;
 
+    public static final int PAGE_SIZE = 5;
+
     @Override
     public boolean saveMsgDetails(Contact contact) {
         boolean isSaved = false;
 
-        contact.setStatus(EazySchoolConstants.OPEN);
+        contact.setStatus(OPEN);
         var savedContact = contactRepository.save(contact);
 
         if (savedContact.getContactId() > 0) {
@@ -30,7 +38,7 @@ public class ContactServiceImpl implements IContactService {
 
     @Override
     public List<Contact> findMessagesWithOpenStatus() {
-        return contactRepository.findByStatus(EazySchoolConstants.OPEN);
+        return contactRepository.findByStatus(OPEN);
     }
 
     @Override
@@ -40,7 +48,7 @@ public class ContactServiceImpl implements IContactService {
         var contact = contactRepository.findById(contactId)
                 .orElseThrow(() -> new RuntimeException("Contact not found"));
 
-        contact.setStatus(EazySchoolConstants.CLOSE);
+        contact.setStatus(CLOSE);
         var updatedContact = contactRepository.save(contact);
 
         if (null != updatedContact.getUpdatedBy()) {
@@ -48,5 +56,13 @@ public class ContactServiceImpl implements IContactService {
         }
 
         return isUpdated;
+    }
+
+    @Override
+    public Page<Contact> findMessagesWithOpenStatus(int pageNumber, String sortField, String sortDir) {
+        Sort sort = sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1, PAGE_SIZE, sort);
+
+        return contactRepository.findByStatus(OPEN, pageable);
     }
 }

@@ -2,6 +2,7 @@ package org.tommap.tomlearnspring.eazy_school.controller;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -125,7 +126,8 @@ public class AdminController {
 
     @GetMapping("/displayCourses")
     public ModelAndView displayCourses(Model model) {
-        var courses = courseRepository.findAll();
+//        var courses = courseRepository.findByOrderByName();
+        var courses = courseRepository.findAll(Sort.by("name").descending());
 
         ModelAndView modelAndView = new ModelAndView("courses_secure.html");
         modelAndView.addObject("courses", courses);

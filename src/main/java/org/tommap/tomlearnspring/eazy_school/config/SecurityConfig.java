@@ -17,7 +17,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/dashboard").authenticated()
-                        .requestMatchers("/displayMessages", "/closeMsg/**", "/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/displayMessages/**", "/closeMsg/**", "/admin/**").hasRole("ADMIN")
                         .requestMatchers("/student/**").hasRole("STUDENT")
                         .requestMatchers("/displayProfile", "/updateProfile").authenticated()
                         .requestMatchers("/", "/home").permitAll() //configure empty path "" is no longer possible

@@ -3,11 +3,13 @@ package org.tommap.tomlearnspring.eazy_school.controller;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -46,11 +48,23 @@ public class ContactController {
         return "redirect:/contact";
     }
 
-    @GetMapping("/displayMessages")
-    public ModelAndView displayMessages(Model model) {
-        List<Contact> contactMessages = contactService.findMessagesWithOpenStatus();
+    @GetMapping("/displayMessages/page/{pageNum}")
+    public ModelAndView displayMessages(
+            Model model,
+            @PathVariable(name = "pageNum") int pageNumber,
+            @RequestParam(name = "sortField") String sortField,
+            @RequestParam(name = "sortDir") String sortDir
+    ) {
+        Page<Contact> msgPage = contactService.findMessagesWithOpenStatus(pageNumber, sortField, sortDir);
+        List<Contact> contactMessages = msgPage.getContent();
+
         ModelAndView modelAndView = new ModelAndView("messages.html");
         modelAndView.addObject("contactMessages", contactMessages);
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", msgPage.getTotalPages());
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
         return modelAndView;
     }
@@ -58,6 +72,6 @@ public class ContactController {
     @GetMapping("/closeMsg")
     public String closeMsg(@RequestParam("id") int contactId) {
         contactService.updateMsgStatus(contactId);
-        return "redirect:/displayMessages";
+        return "redirect:/displayMessages/page/1?sortField=name&sortDir=asc";
     }
 }
