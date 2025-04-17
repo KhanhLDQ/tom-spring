@@ -45,13 +45,18 @@ public class ContactServiceImpl implements IContactService {
     public boolean updateMsgStatus(int contactId) {
         boolean isUpdated = false;
 
-        var contact = contactRepository.findById(contactId)
-                .orElseThrow(() -> new RuntimeException("Contact not found"));
+//        var contact = contactRepository.findById(contactId)
+//                .orElseThrow(() -> new RuntimeException("Contact not found"));
+//
+//        contact.setStatus(CLOSE);
+//        var updatedContact = contactRepository.save(contact);
+//
+//        if (null != updatedContact.getUpdatedBy()) {
+//            isUpdated = true;
+//        }
 
-        contact.setStatus(CLOSE);
-        var updatedContact = contactRepository.save(contact);
-
-        if (null != updatedContact.getUpdatedBy()) {
+        int rowsAffected = contactRepository.updateStatusById(CLOSE, contactId);
+        if (rowsAffected > 0) {
             isUpdated = true;
         }
 
@@ -63,6 +68,8 @@ public class ContactServiceImpl implements IContactService {
         Sort sort = sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
         Pageable pageable = PageRequest.of(pageNumber - 1, PAGE_SIZE, sort);
 
-        return contactRepository.findByStatus(OPEN, pageable);
+//        return contactRepository.findByStatus(OPEN, pageable);
+//        return contactRepository.findByStatusWithJPQL(OPEN, pageable);
+        return contactRepository.findByStatusWithNativeQuery(OPEN, pageable);
     }
 }
