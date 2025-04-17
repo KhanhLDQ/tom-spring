@@ -56,6 +56,10 @@ public class ContactServiceImpl implements IContactService {
 //        }
 
         int rowsAffected = contactRepository.updateStatusById(CLOSE, contactId);
+
+//        int rowsAffected = contactRepository.updateMessageStatus(CLOSE, contactId);
+//        int rowsAffected = contactRepository.updateMessageStatusNative(CLOSE, contactId);
+
         if (rowsAffected > 0) {
             isUpdated = true;
         }
@@ -68,8 +72,11 @@ public class ContactServiceImpl implements IContactService {
         Sort sort = sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
         Pageable pageable = PageRequest.of(pageNumber - 1, PAGE_SIZE, sort);
 
-//        return contactRepository.findByStatus(OPEN, pageable);
+        return contactRepository.findByStatus(OPEN, pageable);
+
 //        return contactRepository.findByStatusWithJPQL(OPEN, pageable);
-        return contactRepository.findByStatusWithNativeQuery(OPEN, pageable);
+//        return contactRepository.findByStatusWithNativeQuery(OPEN, pageable);
+//        return contactRepository.findOpenMessages(OPEN, pageable);
+//        return contactRepository.findOpenMessagesNative(OPEN, pageable);
     }
 }

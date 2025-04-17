@@ -29,4 +29,19 @@ public interface ContactRepository extends JpaRepository<Contact, Integer> {
     @Modifying
     @Query(value = "UPDATE Contact c SET c.status = ?1 WHERE c.contactId = ?2")
     int updateStatusById(String status, int id); //not automatically update auditing columns
+
+    //mapping with @NamedQuery
+    Page<Contact> findOpenMessages(String status, Pageable pageable);
+
+    @Transactional
+    @Modifying
+    int updateMessageStatus(String status, int id);
+
+    @Query(nativeQuery = true)
+    Page<Contact> findOpenMessagesNative(String status, Pageable pageable);
+
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true)
+    int updateMessageStatusNative(String status, int id);
 }
