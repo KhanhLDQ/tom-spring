@@ -13,13 +13,14 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrfConfigurer -> csrfConfigurer
-                        .ignoringRequestMatchers("/saveMsg", "/public/**")
+                        .ignoringRequestMatchers("/saveMsg", "/public/**", "/v1/api/**")
                 )
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/dashboard").authenticated()
                         .requestMatchers("/displayMessages/**", "/closeMsg/**", "/admin/**").hasRole("ADMIN")
                         .requestMatchers("/student/**").hasRole("STUDENT")
                         .requestMatchers("/displayProfile", "/updateProfile").authenticated()
+                        .requestMatchers("/v1/api/**").authenticated()
                         .requestMatchers("/", "/home").permitAll() //configure empty path "" is no longer possible
                         .requestMatchers("/holidays/**").permitAll()
                         .requestMatchers("/contact").permitAll()
