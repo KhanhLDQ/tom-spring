@@ -1,5 +1,6 @@
 package org.tommap.tomlearnspring.eazy_school.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.ColumnResult;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -55,6 +56,7 @@ import lombok.Setter;
 public class Contact extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty("contact_id")
     private int contactId;
 
     @NotBlank(message = "name must not be blank")
@@ -63,6 +65,7 @@ public class Contact extends BaseEntity {
 
     @NotBlank(message = "mobile number must not be blank")
     @Pattern(regexp = "(^$|\\d{10})", message = "mobile number must be 10 digits")
+    @JsonProperty("mobile_number")
     private String mobileNum;
 
     @NotBlank(message = "email must not be blank")

@@ -1,5 +1,6 @@
 package org.tommap.tomlearnspring.eazy_school.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass //indicates that this class is going to act as a superclass for other entities
 @Getter @Setter
 @EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties(value = {"createdAt", "createdBy", "updatedAt", "updatedBy"})
 public class BaseEntity {
     @CreatedDate
     @Column(updatable = false, nullable = false)
