@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface ContactRepository extends JpaRepository<Contact, Integer> {
     List<Contact> findByStatus(String status);
-    Page<Contact> findByStatus(String status, Pageable pageable);
+//    Page<Contact> findByStatus(String status, Pageable pageable);
     @Query(value = "SELECT c FROM Contact c WHERE c.status = :status")
     Page<Contact> findByStatusWithJPQL(String status, Pageable pageable);
 

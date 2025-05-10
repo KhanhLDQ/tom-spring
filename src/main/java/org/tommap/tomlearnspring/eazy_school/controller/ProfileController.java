@@ -15,7 +15,7 @@ import org.tommap.tomlearnspring.eazy_school.model.Person;
 import org.tommap.tomlearnspring.eazy_school.model.Profile;
 import org.tommap.tomlearnspring.eazy_school.repository.PersonRepository;
 
-@Controller
+@Controller("tomProfileController")
 @RequiredArgsConstructor
 public class ProfileController {
     private final PersonRepository personRepository;

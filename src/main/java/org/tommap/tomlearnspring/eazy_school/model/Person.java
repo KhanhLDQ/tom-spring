@@ -1,5 +1,6 @@
 package org.tommap.tomlearnspring.eazy_school.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -59,16 +60,19 @@ public class Person extends BaseEntity{
     @NotBlank(message = "confirm email must not be blank")
     @Email(message = "please provide a valid email address")
     @Transient //communicate to spring data JPA - please never consider these fields for any database related operations
+    @JsonIgnore
     private String confirmEmail;
 
     @NotBlank(message = "password must not be blank")
     @Size(min = 5, message = "password must be at least 5 characters long")
     @PasswordStrength
+    @JsonIgnore
     private String pwd;
 
     @NotBlank(message = "confirm password must not be blank")
     @Size(min = 5, message = "confirm password must be at least 5 characters long")
     @Transient
+    @JsonIgnore
     private String confirmPwd;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, targetEntity = Roles.class)
