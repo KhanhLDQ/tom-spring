@@ -29,7 +29,17 @@ public class DashboardController {
         }
 
         httpSession.setAttribute("loggedInPerson", person);
+        //only for testing log level
+        logMessage();
 
         return "dashboard.html";
+    }
+
+    private void logMessage() {
+        log.error("Error message from the dashboard page");
+        log.warn("Warning message from the dashboard page");
+        log.info("Info message from the dashboard page");
+        log.debug("Debug message from the dashboard page");
+        log.trace("Trace message from the dashboard page");
     }
 }

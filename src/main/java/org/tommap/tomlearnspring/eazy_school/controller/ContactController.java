@@ -55,6 +55,9 @@ public class ContactController {
             @RequestParam(name = "sortField") String sortField,
             @RequestParam(name = "sortDir") String sortDir
     ) {
+        //only for testing log level
+        log.debug("requested page number: {}, sort field: {}, sort direction: {}", pageNumber, sortField, sortDir);
+
         Page<Contact> msgPage = contactService.findMessagesWithOpenStatus(pageNumber, sortField, sortDir);
         List<Contact> contactMessages = msgPage.getContent();
 
