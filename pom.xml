@@ -11,6 +11,7 @@
     <groupId>org.tommap</groupId>
     <artifactId>tom-learn-spring</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>tom-learn-spring</name>
     <description>tom-learn-spring</description>
     <url/>
@@ -114,6 +115,7 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
