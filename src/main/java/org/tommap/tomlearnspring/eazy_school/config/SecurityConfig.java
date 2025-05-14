@@ -13,11 +13,11 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrfConfigurer -> csrfConfigurer
-                        .ignoringRequestMatchers("/saveMsg", "/public/**", "/v1/api/**", "/data-api/**")
+                        .ignoringRequestMatchers("/saveMsg", "/public/**", "/v1/api/**", "/data-api/**", "/actuator/**")
                 )
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/dashboard").authenticated()
-                        .requestMatchers("/displayMessages/**", "/closeMsg/**", "/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/displayMessages/**", "/closeMsg/**", "/admin/**", "/actuator/**").hasRole("ADMIN")
                         .requestMatchers("/student/**").hasRole("STUDENT")
                         .requestMatchers("/displayProfile", "/updateProfile").authenticated()
                         .requestMatchers("/v1/api/**").authenticated()
